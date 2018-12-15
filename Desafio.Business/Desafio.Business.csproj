@@ -8,4 +8,8 @@
     <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="2.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Desafio.Domain\Desafio.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

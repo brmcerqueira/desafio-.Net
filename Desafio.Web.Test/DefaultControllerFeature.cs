@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Net;
 using Xbehave;
 using Xunit;
 
@@ -38,19 +38,34 @@ namespace Desafio.Web.Test
                             country_code = "+55"
                         }
                     }
-                }
+                },
+                new ResponseExpected(HttpStatusCode.OK)
+            },
+            new object[] {
+                new
+                {
+                    firstName = "Hello",
+                    lastName = "World",
+                    email = "hello@world.com",
+                    password = "hunter2",
+                    phones = new object[] {
+                        new {
+                            number = 988887888,
+                            area_code = 81,
+                            country_code = "+55"
+                        }
+                    }
+                },
+                new ResponseExpected(HttpStatusCode.InternalServerError, 1)
             },
         };
 
         [Scenario]
         [MemberData(nameof(SignUpData))]
-        public void SignUp(object content, HttpResponseMessage response)
+        public void SignUp(object content, ResponseExpected responseExpected)
         {
             $"Fazendo um post para a rota 'signup' com o seguinte body '{JsonConvert.SerializeObject(content)}'"
-                .x(async () => response = await server.CreateRequest("signup").Json(content).PostAsync());
-
-            "Garantindo o sucesso da requisição"
-                .x(() => response.EnsureSuccessStatusCode());
+                .x(() => server.CreateRequest("signup").Json(content).PostAsync().CheckResponse(responseExpected));
         }
 
         public static IEnumerable<object[]> SignInData => new List<object[]>
@@ -60,33 +75,33 @@ namespace Desafio.Web.Test
                {
                    email = "hello@world.com",
                    password = "hunter2"
-               }
+               },
+               new ResponseExpected(HttpStatusCode.OK)
             },
         };
 
         [Scenario]
         [MemberData(nameof(SignInData))]
-        public void SignIn(object content, HttpResponseMessage response)
+        public void SignIn(object content, ResponseExpected responseExpected)
         {
             $"Fazendo um post para a rota 'signin' com o seguinte body '{JsonConvert.SerializeObject(content)}'"
-                .x(async () => response = await server.CreateRequest("signin").Json(content).PostAsync());
-
-            "Garantindo o sucesso da requisição"
-                .x(() => response.EnsureSuccessStatusCode());
-
-            //var responseString = await response.Content.ReadAsStringAsync();
-
-            //Assert.Equal("Hello World!", responseString);
+                .x(() => server.CreateRequest("signin").Json(content).PostAsync().CheckResponse(responseExpected));
         }
 
-        [Scenario]
-        public void Me(HttpResponseMessage response)
+        public static IEnumerable<object[]> MeData => new List<object[]>
         {
-            "Fazendo um get para a rota 'me'"
-                .x(async () => response = await server.CreateRequest("me").GetAsync());
+            new object[] {
+               "",
+               new ResponseExpected(HttpStatusCode.OK)
+            },
+        };
 
-            "Garantindo o sucesso da requisição"
-                .x(() => response.EnsureSuccessStatusCode());
+        [Scenario]
+        [MemberData(nameof(MeData))]
+        public void Me(string authorization, ResponseExpected responseExpected)
+        {
+            $"Fazendo um get para a rota 'me' com a autorização '{authorization}'"
+                .x(() => server.CreateRequest("me").AddHeader("Authorization", authorization).GetAsync().CheckResponse(responseExpected));
         }
     }
 }

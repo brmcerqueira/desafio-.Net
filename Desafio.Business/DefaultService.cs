@@ -1,4 +1,5 @@
 ﻿using Desafio.Business.Dtos;
+using Desafio.Domain.Exceptions;
 
 namespace Desafio.Business
 {
@@ -22,7 +23,7 @@ namespace Desafio.Business
 
         public void SignUp(ISignUpDto dto)
         {
- 
+            throw new EmailAlreadyExistsException();
         }
     }
 }

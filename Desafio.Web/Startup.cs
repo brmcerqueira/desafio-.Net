@@ -30,6 +30,7 @@ namespace Desafio.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvcWithDefaultRoute();
         }
     }

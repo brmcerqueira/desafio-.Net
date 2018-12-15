@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Web", "Desafio.Web\Desafio.Web.csproj", "{12799CE5-6586-4A91-9FED-A2DC36B181D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Business", "Desafio.Business\Desafio.Business.csproj", "{E92EC798-FB57-4183-9134-1666C7081757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Business", "Desafio.Business\Desafio.Business.csproj", "{E92EC798-FB57-4183-9134-1666C7081757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Web.Test", "Desafio.Web.Test\Desafio.Web.Test.csproj", "{581E22BC-6925-4768-A79F-35F81D4ED24F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Web.Test", "Desafio.Web.Test\Desafio.Web.Test.csproj", "{581E22BC-6925-4768-A79F-35F81D4ED24F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Domain", "Desafio.Domain\Desafio.Domain.csproj", "{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{581E22BC-6925-4768-A79F-35F81D4ED24F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{581E22BC-6925-4768-A79F-35F81D4ED24F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{581E22BC-6925-4768-A79F-35F81D4ED24F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
