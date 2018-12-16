@@ -30,8 +30,11 @@ namespace Desafio.Web.Test
             {
                 var messageError = JsonConvert.DeserializeObject<MessageError>(responseData);
 
+                $"Dados do erro: '{messageError.ErrorCode}' - '{messageError.Message}'"
+                      .x(() => {});
+
                 $"Verificando se o codigo de erro é '{responseExpected.ErrorCode.Value}'"
-                    .x(() => { Assert.Equal(responseExpected.ErrorCode.Value, messageError.ErrorCode); });
+                    .x(() => Assert.Equal(responseExpected.ErrorCode.Value, messageError.ErrorCode));
             }
         }
     }

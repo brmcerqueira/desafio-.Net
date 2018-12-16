@@ -1,6 +1,6 @@
 ﻿using Desafio.Domain.Exceptions;
-using Desafio.Web.Resources;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -17,7 +17,7 @@ namespace Desafio.Web
             this.next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IStringLocalizer stringLocalizer)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace Desafio.Web
                     var desafioException = exception as DesafioException;
                     result = new
                     {
-                        message = Resource.ResourceManager.GetString(desafioException.Message),
+                        message = stringLocalizer[desafioException.Message].Value,
                         errorCode = desafioException.Code
                     };
                 }
