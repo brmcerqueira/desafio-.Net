@@ -68,5 +68,32 @@ namespace Desafio.Web.Resources {
                 return ResourceManager.GetString("email_already_exists_exception", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser menor ou igual a {MaxLength} caracteres. Você digitou {TotalLength} caracteres..
+        /// </summary>
+        internal static string MaximumLengthValidator {
+            get {
+                return ResourceManager.GetString("MaximumLengthValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser maior ou igual a {MinLength} caracteres. Você digitou {TotalLength} caracteres..
+        /// </summary>
+        internal static string MinimumLengthValidator {
+            get {
+                return ResourceManager.GetString("MinimumLengthValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Senha.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
     }
 }

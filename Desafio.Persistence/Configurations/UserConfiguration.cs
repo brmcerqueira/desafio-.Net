@@ -16,6 +16,7 @@ namespace Desafio.Persistence.Configurations
             builder.Property(x => x.Password).IsRequired().HasMaxLength(30);
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.LastLogin);
+            builder.HasMany(x => x.Phones).WithOne(x => x.User).IsRequired();
         }
     }
 }

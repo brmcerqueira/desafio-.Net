@@ -28,21 +28,31 @@ namespace Desafio.Web
                 var code = HttpStatusCode.InternalServerError;
                 object result = null;
 
-                if (exception is DesafioException)
+                if (exception is ValidationException)
+                {
+                    var validationException = exception as ValidationException;
+                    result = new
+                    {
+                        Message = stringLocalizer[validationException.Message].Value,
+                        ErrorCode = validationException.Code,
+                        validationException.Errors
+                    };
+                }
+                else if(exception is DesafioException)
                 {
                     var desafioException = exception as DesafioException;
                     result = new
                     {
-                        message = stringLocalizer[desafioException.Message].Value,
-                        errorCode = desafioException.Code
+                        Message = stringLocalizer[desafioException.Message].Value,
+                        ErrorCode = desafioException.Code
                     };
                 }
                 else
                 {
                     result = new
                     {
-                        message = exception.Message,
-                        errorCode = 0
+                        exception.Message,
+                        ErrorCode = 0
                     };
                 }
 

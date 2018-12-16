@@ -1,5 +1,5 @@
-﻿using LightInject;
-using System;
+﻿using FluentValidation;
+using LightInject;
 
 namespace Desafio.Business
 {
@@ -7,6 +7,7 @@ namespace Desafio.Business
     {
         public void Compose(IServiceRegistry serviceRegistry)
         {
+            serviceRegistry.Register<ValidationLanguageManager>();
             serviceRegistry.Register<IDefaultService, DefaultService>();
         }
     }

@@ -14,6 +14,7 @@ namespace Desafio.Web
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private IServiceContainer container;
 
         public Startup(IHostingEnvironment env)
         {
@@ -39,6 +40,7 @@ namespace Desafio.Web
         // Important: This method must exist in order to replace the default provider.
         public void ConfigureContainer(IServiceContainer container)
         {
+            this.container = container;
             container.Register(f => f.GetInstance<IStringLocalizerFactory>().Create("Shared", "Desafio.Web"));
             container.RegisterFrom<BusinessRoot>();
             container.RegisterFrom<PersistenceRoot>();
@@ -59,6 +61,7 @@ namespace Desafio.Web
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvcWithDefaultRoute();
+            container.AdjustValidationLanguageManager();
         }
     }
 }

@@ -6,6 +6,6 @@
         public int AreaCode { get; set; }
         public string CountryCode { get; set; }
         public int Number { get; set; }
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }

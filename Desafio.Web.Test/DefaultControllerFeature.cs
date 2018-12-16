@@ -30,7 +30,7 @@ namespace Desafio.Web.Test
                     firstName = "Hello",
                     lastName = "World",
                     email = "hello@world.com",
-                    password = "hunter2",
+                    password = "hun",
                     phones = new object[] {
                         new {
                             number = 988887888,

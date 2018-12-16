@@ -12,6 +12,6 @@ namespace Desafio.Domain
         public string Password { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
-        public virtual IList<UserPhone> Phones { get; set; }
+        public ICollection<UserPhone> Phones { get; set; }
     }
 }

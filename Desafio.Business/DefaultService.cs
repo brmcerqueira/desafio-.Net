@@ -1,7 +1,9 @@
 ﻿using Desafio.Business.Dtos;
+using Desafio.Business.Validators;
 using Desafio.Domain;
 using Desafio.Domain.Exceptions;
 using Desafio.Persistence;
+using FluentValidation;
 using System;
 using System.Linq;
 
@@ -10,10 +12,12 @@ namespace Desafio.Business
     internal class DefaultService : IDefaultService
     {
         private readonly IDefaultDao dao;
+        private readonly SignUpDtoValidator signUpDtoValidator;
 
         public DefaultService(IDefaultDao dao)
         {
             this.dao = dao;
+            signUpDtoValidator = new SignUpDtoValidator();
         }
 
         public object Me()
@@ -34,6 +38,8 @@ namespace Desafio.Business
 
         public void SignUp(ISignUpDto dto)
         {
+            signUpDtoValidator.Check(dto);
+
             dao.CreateUser(new User
             {
                 FirstName = dto.FirstName,
