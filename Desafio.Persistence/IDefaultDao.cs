@@ -8,5 +8,6 @@ namespace Desafio.Persistence
     public interface IDefaultDao
     {
         void CreateUser(User user);
+        bool HasEmail(string email);
     }
 }

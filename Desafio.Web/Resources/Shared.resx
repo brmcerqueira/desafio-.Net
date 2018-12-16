@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="email_already_exists_exception" xml:space="preserve">
-    <value>E-mail already exists</value>
+  <data name="EmailAlreadyExistsException" xml:space="preserve">
+    <value>E-mail já existe cadastrado.</value>
   </data>
   <data name="MaximumLengthValidator" xml:space="preserve">
     <value>'{PropertyName}' deve ser menor ou igual a {MaxLength} caracteres. Você digitou {TotalLength} caracteres.</value>
@@ -191,5 +191,8 @@
   </data>
   <data name="ScalePrecisionValidator" xml:space="preserve">
     <value>'{PropertyName}' não pode ter mais do que {expectedPrecision} dígitos no total, com {expectedScale} dígitos decimais. {digits} dígitos e {actualScale} decimais foram informados.</value>
+  </data>
+  <data name="ValidationException" xml:space="preserve">
+    <value>Os dados não estão válidos.</value>
   </data>
 </root>

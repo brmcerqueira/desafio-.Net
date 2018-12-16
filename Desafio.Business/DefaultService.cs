@@ -40,6 +40,11 @@ namespace Desafio.Business
         {
             signUpDtoValidator.Check(dto);
 
+            if (dao.HasEmail(dto.Email))
+            {
+                throw new EmailAlreadyExistsException();
+            }
+
             dao.CreateUser(new User
             {
                 FirstName = dto.FirstName,
@@ -54,7 +59,6 @@ namespace Desafio.Business
                     Number = p.Number,
                 }).ToList()
             });
-            //throw new EmailAlreadyExistsException();
         }
     }
 }

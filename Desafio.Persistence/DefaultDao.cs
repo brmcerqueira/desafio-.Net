@@ -1,4 +1,5 @@
 ﻿using Desafio.Domain;
+using System.Linq;
 
 namespace Desafio.Persistence
 {
@@ -15,6 +16,11 @@ namespace Desafio.Persistence
         {
             context.Add(user);
             context.SaveChanges();
+        }
+
+        public bool HasEmail(string email)
+        {
+            return context.Set<User>().Any(e => e.Email == email);
         }
     }
 }

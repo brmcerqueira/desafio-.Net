@@ -4,7 +4,7 @@ namespace Desafio.Domain.Exceptions
 {
     public class ValidationException : DesafioException
     {
-        public ValidationException(IEnumerable<string> errors) : base("validation_exception", 2)
+        public ValidationException(IEnumerable<string> errors) : base("ValidationException", 2)
         {
             Errors = errors;
         }

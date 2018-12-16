@@ -2,7 +2,7 @@
 {
     public class EmailAlreadyExistsException : DesafioException
     {
-        public EmailAlreadyExistsException() : base("email_already_exists_exception", 1)
+        public EmailAlreadyExistsException() : base("EmailAlreadyExistsException", 1)
         {
         }
     }
