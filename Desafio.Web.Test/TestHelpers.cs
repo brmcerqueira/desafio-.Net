@@ -23,19 +23,24 @@ namespace Desafio.Web.Test
             var response = await taskResponse;
             var responseData = await response.Content.ReadAsStringAsync();
 
+            $"Dados da resposta: '{response.StatusCode}' - '{response.ReasonPhrase}'"
+                .x(() => { });
+
             $"Verificando se o status é '{(int)responseExpected.StatusCode}'"
-                .x(() => Assert.Equal(responseExpected.StatusCode, response.StatusCode));
+                .x(() => 
+                {
+                    Assert.Equal(responseExpected.StatusCode, response.StatusCode);
+                    if (responseExpected.ErrorCode.HasValue)
+                    {
+                        var messageError = JsonConvert.DeserializeObject<MessageError>(responseData);
 
-            if (responseExpected.ErrorCode.HasValue)
-            {
-                var messageError = JsonConvert.DeserializeObject<MessageError>(responseData);
+                        $"Dados do erro: '{messageError.ErrorCode}' - '{messageError.Message}'"
+                              .x(() => { });
 
-                $"Dados do erro: '{messageError.ErrorCode}' - '{messageError.Message}'"
-                      .x(() => {});
-
-                $"Verificando se o codigo de erro é '{responseExpected.ErrorCode.Value}'"
-                    .x(() => Assert.Equal(responseExpected.ErrorCode.Value, messageError.ErrorCode));
-            }
+                        $"Verificando se o codigo de erro é '{responseExpected.ErrorCode.Value}'"
+                            .x(() => Assert.Equal(responseExpected.ErrorCode.Value, messageError.ErrorCode));
+                    }
+                });
         }
     }
 }

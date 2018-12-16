@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Business", "Desafio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Web.Test", "Desafio.Web.Test\Desafio.Web.Test.csproj", "{581E22BC-6925-4768-A79F-35F81D4ED24F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Domain", "Desafio.Domain\Desafio.Domain.csproj", "{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.Domain", "Desafio.Domain\Desafio.Domain.csproj", "{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.Persistence", "Desafio.Persistence\Desafio.Persistence.csproj", "{0DA88392-32C4-45BA-AB27-33F4A7369BB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F20B7B2E-405E-4BCC-A3FA-5CD947378BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA88392-32C4-45BA-AB27-33F4A7369BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA88392-32C4-45BA-AB27-33F4A7369BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA88392-32C4-45BA-AB27-33F4A7369BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA88392-32C4-45BA-AB27-33F4A7369BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,8 +12,6 @@ namespace Desafio.Web
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseLightInject()
-                .UseStartup<Startup>();
+            WebHost.CreateDefaultBuilder(args).UseLightInject().UseStartup<Startup>();
     }
 }
