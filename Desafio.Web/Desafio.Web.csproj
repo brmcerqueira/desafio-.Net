@@ -24,14 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Shared.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Shared.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -39,8 +31,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\Shared.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Shared.Designer.cs</LastGenOutput>
+      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 

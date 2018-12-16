@@ -126,7 +126,70 @@
   <data name="MinimumLengthValidator" xml:space="preserve">
     <value>'{PropertyName}' deve ser maior ou igual a {MinLength} caracteres. Você digitou {TotalLength} caracteres.</value>
   </data>
+  <data name="AsyncPredicateValidator" xml:space="preserve">
+    <value>'{PropertyName}' não atende a condição definida.</value>
+  </data>
+  <data name="CreditCardValidator" xml:space="preserve">
+    <value>'{PropertyName}' não é um número válido de cartão de crédito.</value>
+  </data>
+  <data name="EmailValidator" xml:space="preserve">
+    <value>'{PropertyName}' é um endereço de email inválido.</value>
+  </data>
+  <data name="EmptyValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve estar vazio.</value>
+  </data>
+  <data name="EnumValidator" xml:space="preserve">
+    <value>'{PropertyName}' possui um intervalo de valores que não inclui '{PropertyValue}'.</value>
+  </data>
+  <data name="EqualValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser igual a '{ComparisonValue}'.</value>
+  </data>
+  <data name="ExactLengthValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ter no máximo {MaxLength} caracteres. Você digitou {TotalLength} caracteres.</value>
+  </data>
+  <data name="ExclusiveBetweenValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve, exclusivamente, estar entre {From} e {To}. Você digitou {Value}.</value>
+  </data>
+  <data name="GreaterThanOrEqualValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser superior ou igual a '{ComparisonValue}'.</value>
+  </data>
+  <data name="GreaterThanValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser superior a '{ComparisonValue}'.</value>
+  </data>
+  <data name="InclusiveBetweenValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve estar entre {From} e {To}. Você digitou {Value}.</value>
+  </data>
+  <data name="LengthValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ter entre {MinLength} e {MaxLength} caracteres. Você digitou {TotalLength} caracteres.</value>
+  </data>
+  <data name="LessThanOrEqualValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser inferior ou igual a '{ComparisonValue}'.</value>
+  </data>
+  <data name="LessThanValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser inferior a '{ComparisonValue}'.</value>
+  </data>
+  <data name="NotEmptyValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser informado.</value>
+  </data>
+  <data name="NotEqualValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve ser diferente de '{ComparisonValue}'.</value>
+  </data>
+  <data name="NotNullValidator" xml:space="preserve">
+    <value>'{PropertyName}' não pode ser nulo.</value>
+  </data>
+  <data name="NullValidator" xml:space="preserve">
+    <value>'{PropertyName}' deve estar nulo.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Senha</value>
+  </data>
+  <data name="PredicateValidator" xml:space="preserve">
+    <value>'{PropertyName}' não atende a condição definida.</value>
+  </data>
+  <data name="RegularExpressionValidator" xml:space="preserve">
+    <value>'{PropertyName}' não está no formato correto.</value>
+  </data>
+  <data name="ScalePrecisionValidator" xml:space="preserve">
+    <value>'{PropertyName}' não pode ter mais do que {expectedPrecision} dígitos no total, com {expectedScale} dígitos decimais. {digits} dígitos e {actualScale} decimais foram informados.</value>
   </data>
 </root>

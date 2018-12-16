@@ -61,11 +61,137 @@ namespace Desafio.Web.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não atende a condição definida..
+        /// </summary>
+        internal static string AsyncPredicateValidator {
+            get {
+                return ResourceManager.GetString("AsyncPredicateValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não é um número válido de cartão de crédito..
+        /// </summary>
+        internal static string CreditCardValidator {
+            get {
+                return ResourceManager.GetString("CreditCardValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail already exists.
         /// </summary>
         internal static string email_already_exists_exception {
             get {
                 return ResourceManager.GetString("email_already_exists_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; é um endereço de email inválido..
+        /// </summary>
+        internal static string EmailValidator {
+            get {
+                return ResourceManager.GetString("EmailValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve estar vazio..
+        /// </summary>
+        internal static string EmptyValidator {
+            get {
+                return ResourceManager.GetString("EmptyValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; possui um intervalo de valores que não inclui &apos;{PropertyValue}&apos;..
+        /// </summary>
+        internal static string EnumValidator {
+            get {
+                return ResourceManager.GetString("EnumValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser igual a &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string EqualValidator {
+            get {
+                return ResourceManager.GetString("EqualValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ter no máximo {MaxLength} caracteres. Você digitou {TotalLength} caracteres..
+        /// </summary>
+        internal static string ExactLengthValidator {
+            get {
+                return ResourceManager.GetString("ExactLengthValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve, exclusivamente, estar entre {From} e {To}. Você digitou {Value}..
+        /// </summary>
+        internal static string ExclusiveBetweenValidator {
+            get {
+                return ResourceManager.GetString("ExclusiveBetweenValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser superior ou igual a &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string GreaterThanOrEqualValidator {
+            get {
+                return ResourceManager.GetString("GreaterThanOrEqualValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser superior a &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string GreaterThanValidator {
+            get {
+                return ResourceManager.GetString("GreaterThanValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve estar entre {From} e {To}. Você digitou {Value}..
+        /// </summary>
+        internal static string InclusiveBetweenValidator {
+            get {
+                return ResourceManager.GetString("InclusiveBetweenValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ter entre {MinLength} e {MaxLength} caracteres. Você digitou {TotalLength} caracteres..
+        /// </summary>
+        internal static string LengthValidator {
+            get {
+                return ResourceManager.GetString("LengthValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser inferior ou igual a &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string LessThanOrEqualValidator {
+            get {
+                return ResourceManager.GetString("LessThanOrEqualValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser inferior a &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string LessThanValidator {
+            get {
+                return ResourceManager.GetString("LessThanValidator", resourceCulture);
             }
         }
         
@@ -88,11 +214,74 @@ namespace Desafio.Web.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser informado..
+        /// </summary>
+        internal static string NotEmptyValidator {
+            get {
+                return ResourceManager.GetString("NotEmptyValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve ser diferente de &apos;{ComparisonValue}&apos;..
+        /// </summary>
+        internal static string NotEqualValidator {
+            get {
+                return ResourceManager.GetString("NotEqualValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não pode ser nulo..
+        /// </summary>
+        internal static string NotNullValidator {
+            get {
+                return ResourceManager.GetString("NotNullValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; deve estar nulo..
+        /// </summary>
+        internal static string NullValidator {
+            get {
+                return ResourceManager.GetString("NullValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Senha.
         /// </summary>
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não atende a condição definida..
+        /// </summary>
+        internal static string PredicateValidator {
+            get {
+                return ResourceManager.GetString("PredicateValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não está no formato correto..
+        /// </summary>
+        internal static string RegularExpressionValidator {
+            get {
+                return ResourceManager.GetString("RegularExpressionValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &apos;{PropertyName}&apos; não pode ter mais do que {expectedPrecision} dígitos no total, com {expectedScale} dígitos decimais. {digits} dígitos e {actualScale} decimais foram informados..
+        /// </summary>
+        internal static string ScalePrecisionValidator {
+            get {
+                return ResourceManager.GetString("ScalePrecisionValidator", resourceCulture);
             }
         }
     }
