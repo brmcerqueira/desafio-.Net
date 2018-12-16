@@ -36,7 +36,7 @@ namespace Desafio.Web
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("pt-BR")
+                DefaultRequestCulture = new RequestCulture("en-US")
             });
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
