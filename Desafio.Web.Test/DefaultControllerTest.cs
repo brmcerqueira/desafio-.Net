@@ -12,6 +12,10 @@ namespace Desafio.Web.Test
 {
     public class DefaultControllerTest
     {
+        private const int EMAIL_ALREADY_EXISTS_EXCEPTION = 1;
+        private const int AUTHENTICATION_EXCEPTION = 2;
+        private const int VALIDATION_EXCEPTION = 3;
+        
         private readonly TestServer server;
         private readonly ITestOutputHelper output;
 
@@ -57,7 +61,7 @@ namespace Desafio.Web.Test
                         }
                     }
                 },
-                new ResponseExpected(HttpStatusCode.InternalServerError, 1)
+                new ResponseExpected(HttpStatusCode.InternalServerError, EMAIL_ALREADY_EXISTS_EXCEPTION)
             },
         };
 
@@ -79,6 +83,22 @@ namespace Desafio.Web.Test
                },
                new ResponseExpected(HttpStatusCode.OK)
             },
+            new object[] {
+               new
+               {
+                   email = "hello2@world.com",
+                   password = "hunter2"
+               },
+               new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
+            },
+            new object[] {
+               new
+               {
+                   email = "hello@world.com",
+                   password = "hunter3"
+               },
+               new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
+            },
         };
 
         [Theory]
@@ -96,7 +116,11 @@ namespace Desafio.Web.Test
                new ResponseExpected(HttpStatusCode.OK)
             },
             new object[] {
-               "-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.KaINq-FtdB8jLhmaHqcH4BgcF8-oxOl9zISZDS9cR-Pm1nyEOwQa8kHa_PI6FNruFEbJM97VucGZ2wYEbUpUvyzsLopFgg2Ij4nkeRxQ_gMBJulTXOB87yppTc_XHvV2Q94h-qrhdAatPc0Xye-ji9Gch_OB6vj95YC3LhxDYXsIUGUSGytHsPLV3Q3D_OlwZvqinQ6MrwfkM1ciUaWhp_B_tn_RlonnzrMb_xluYsCXsdvb2CGvd5Yvm8NUlNG29viU_XPP8EQ5NyryrCisYP67rTwdRXMt861nnVEicjnMqJhjZsHO5dUMwAA3DOH9n49v3RhYjJEpA",
+               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkhlbGxvIFdvcmxkIiwic3ViIjoiMSIsImVtYWlsIjoiaGVsbG9Ad29ybGQuY29tIiwibmJmIjoxNTQ1MDEyMDkxLCJleHAiOjE1NDUwMTIwOTQsImlhdCI6MTU0NTAxMjA5MSwiaXNzIjoiRGVzYWZpb0lzc3VlciIsImF1ZCI6IkRlc2FmaW9BdWRpZW5jZSJ9.3eA87aoQ-YCjG9lrupRbE2nVGMKFlMVMWrSqbHiu4lc",
+               new ResponseExpected(HttpStatusCode.Unauthorized)
+            },
+            new object[] {
+               "",
                new ResponseExpected(HttpStatusCode.Unauthorized)
             },
         };

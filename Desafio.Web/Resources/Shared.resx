@@ -195,4 +195,7 @@
   <data name="ValidationException" xml:space="preserve">
     <value>Os dados não estão válidos.</value>
   </data>
+  <data name="AuthenticationException" xml:space="preserve">
+    <value>E-mail ou senha inválida.</value>
+  </data>
 </root>

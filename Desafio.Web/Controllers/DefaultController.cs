@@ -2,6 +2,8 @@
 using Desafio.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Security.Claims;
 
 namespace Desafio.Web.Controllers
 {
@@ -23,7 +25,7 @@ namespace Desafio.Web.Controllers
         }
 
         [HttpPost("signin")]
-        public object SignIn(SignInModel model)
+        public string SignIn(SignInModel model)
         {
             return service.SignIn(model);
         }
@@ -32,7 +34,7 @@ namespace Desafio.Web.Controllers
         [HttpGet("me")]
         public object Me()
         {
-            return service.Me();
+            return service.Me(Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value));
         }
     }
 }

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DefaultService.cs~RFd887147.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt-Core" Version="2.0.0" />
     <PackageReference Include="FluentValidation" Version="8.1.1" />
     <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="2.0.7" />

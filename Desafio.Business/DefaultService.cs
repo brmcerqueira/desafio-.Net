@@ -18,47 +18,69 @@ namespace Desafio.Business
         private readonly SigningCredentials signingCredentials;
         private readonly IDefaultDao dao;
         private readonly SignUpDtoValidator signUpDtoValidator;
+        private readonly SignInDtoValidator signInDtoValidator;
 
         public DefaultService(SigningCredentials signingCredentials, IDefaultDao dao)
         {
             this.signingCredentials = signingCredentials;
             this.dao = dao;
             signUpDtoValidator = new SignUpDtoValidator();
+            signInDtoValidator = new SignInDtoValidator();
         }
 
-        public object Me()
+        public object Me(int userId)
         {
+            var user = dao.GetUserById(userId);
+
             return new
             {
-                FirstName = ""
+                user.FirstName,
+                user.LastName,
+                user.Email,
+                user.CreatedAt,
+                user.LastLogin,
+                Phones = user.Phones.Select(p => new
+                {
+                    p.AreaCode,
+                    p.CountryCode,
+                    p.Number
+                })
             };
         }
 
-        public object SignIn(ISignInDto dto)
+        public string SignIn(ISignInDto dto)
         {
+            signInDtoValidator.Check(dto);
+
             var user = dao.GetUserByEmail(dto.Email);
+
+            if (user == null || !BCryptHelper.CheckPassword(dto.Password, user.Password))
+            {
+                throw new AuthenticationException();
+            }
 
             var now = DateTime.Now;
 
+            user.LastLogin = now;
+
+            dao.UpdateUser(user);
+
             var handler = new JwtSecurityTokenHandler();
 
-            return new
+            return handler.WriteToken(handler.CreateToken(new SecurityTokenDescriptor
             {
-                Token = handler.WriteToken(handler.CreateToken(new SecurityTokenDescriptor
-                {
-                    Issuer = "DesafioIssuer",
-                    Audience = "DesafioAudience",
-                    SigningCredentials = signingCredentials,
-                    Subject = new ClaimsIdentity(new GenericIdentity($"{user.FirstName} {user.LastName}", "SignIn"),
+                Issuer = "DesafioIssuer",
+                Audience = "DesafioAudience",
+                SigningCredentials = signingCredentials,
+                Subject = new ClaimsIdentity(new GenericIdentity($"{user.FirstName} {user.LastName}", "SignIn"),
                         new[] {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                             new Claim(JwtRegisteredClaimNames.Email, user.Email)
                         }
                     ),
-                    NotBefore = now,
-                    Expires = now + TimeSpan.FromDays(3)
-                }))
-            };
+                NotBefore = now,
+                Expires = now + TimeSpan.FromSeconds(3)
+            }));
         }
 
         public void SignUp(ISignUpDto dto)

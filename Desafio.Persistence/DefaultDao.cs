@@ -23,9 +23,20 @@ namespace Desafio.Persistence
             return context.Set<User>().SingleOrDefault(e => e.Email == email);
         }
 
+        public User GetUserById(int userId)
+        {
+            return context.Set<User>().Single(e => e.Id == userId);
+        }
+
         public bool HasEmail(string email)
         {
             return context.Set<User>().Any(e => e.Email == email);
+        }
+
+        public void UpdateUser(User user)
+        {
+            context.Update(user);
+            context.SaveChanges();
         }
     }
 }
