@@ -2,6 +2,7 @@ using LightInject.Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -27,141 +28,132 @@ namespace Desafio.Web.Test
             this.output = output;
         }
 
-        public static IEnumerable<object[]> SignUpData => new List<object[]>
+        public static IEnumerable<object[]> SignUpData()
         {
-            new object[] {
-                new
-                {
-                    firstName = "Hello",
-                    lastName = "World",
-                    email = "hello@world.com",
-                    password = "hunter2",
-                    phones = new object[] {
+            var email = TestHelpers.GenerateRandomEmail();
+            return new List<object[]>
+            {
+                new object[] {
+                    CreateSignUpInput(email),
+                    new ResponseExpected(HttpStatusCode.OK)
+                },
+                new object[] {
+                    CreateSignUpInput(email),
+                    new ResponseExpected(HttpStatusCode.InternalServerError, EMAIL_ALREADY_EXISTS_EXCEPTION)
+                },
+            };
+        }
+
+        private static object CreateSignUpInput(string email = null)
+        {
+            return new
+            {
+                firstName = "Hello",
+                lastName = "World",
+                email = email ?? TestHelpers.GenerateRandomEmail(),
+                password = "hunter2",
+                phones = new object[] {
                         new {
                             number = 988887888,
                             area_code = 81,
                             country_code = "+55"
                         }
                     }
-                },
-                new ResponseExpected(HttpStatusCode.OK)
-            },
-            new object[] {
-                new
-                {
-                    firstName = "Hello",
-                    lastName = "World",
-                    email = "hello@world.com",
-                    password = "hunter2",
-                    phones = new object[] {
-                        new {
-                            number = 988887888,
-                            area_code = 81,
-                            country_code = "+55"
-                        }
-                    }
-                },
-                new ResponseExpected(HttpStatusCode.InternalServerError, EMAIL_ALREADY_EXISTS_EXCEPTION)
-            },
-        };
+            };
+        }
 
         [Theory]
         [MemberData(nameof(SignUpData))]
         public async Task SignUp(object content, ResponseExpected responseExpected)
         {
+            await SignUpRequest(content, responseExpected);
+        }
+
+        private async Task SignUpRequest(object content, ResponseExpected responseExpected)
+        {
             output.WriteLine($"Fazendo um post para a rota 'signup' com o seguinte body '{JsonConvert.SerializeObject(content)}'");
             await server.CreateRequest("signup").Json(content).PostAsync().CheckResponse(output, responseExpected);
         }
 
-        public static IEnumerable<object[]> SignInData => new List<object[]>
+        public static IEnumerable<object[]> SignInData()
         {
-            new object[] {
-               new
-               {
-                   email = "hello@world.com",
-                   password = "hunter2"
-               },
-               new ResponseExpected(HttpStatusCode.OK)
-            },
-            new object[] {
-               new
-               {
-                   email = "hello2@world.com",
-                   password = "hunter2"
-               },
-               new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
-            },
-            new object[] {
-               new
-               {
-                   email = "hello@world.com",
-                   password = "hunter3"
-               },
-               new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
-            },
-        };
+            var emailOne = TestHelpers.GenerateRandomEmail();
+            var emailTwo = TestHelpers.GenerateRandomEmail();
+            var emailThree = TestHelpers.GenerateRandomEmail();
 
+            return new List<object[]>
+            {
+                new object[] {
+                   emailOne,
+                   new
+                   {
+                       email = emailOne,
+                       password = "hunter2"
+                   },
+                   new ResponseExpected(HttpStatusCode.OK)
+                },
+                new object[] {
+                   emailTwo,
+                   new
+                   {
+                       email = emailTwo.Substring(1),
+                       password = "hunter2"
+                   },
+                   new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
+                },
+                new object[] {
+                   emailThree,
+                   new
+                   {
+                       email = emailThree,
+                       password = "hunter3"
+                   },
+                   new ResponseExpected(HttpStatusCode.InternalServerError, AUTHENTICATION_EXCEPTION)
+                },
+            };
+        }
+        
         [Theory]
         [MemberData(nameof(SignInData))]
-        public async Task SignIn(object content, ResponseExpected responseExpected)
+        public async Task SignIn(string email, object content, ResponseExpected responseExpected)
+        {
+            await SignUpRequest(CreateSignUpInput(email), new ResponseExpected(HttpStatusCode.OK));
+
+            await SignInRequest(content, responseExpected);
+        }
+
+        private async Task<string> SignInRequest(object content, ResponseExpected responseExpected)
         {
             output.WriteLine($"Fazendo um post para a rota 'signin' com o seguinte body '{JsonConvert.SerializeObject(content)}'");
-            await server.CreateRequest("signin").Json(content).PostAsync().CheckResponse(output, responseExpected);
+            return await server.CreateRequest("signin").Json(content).PostAsync().CheckResponse(output, responseExpected);
         }
 
         public static IEnumerable<object[]> MeData => new List<object[]>
         {
             new object[] {
-               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkhlbGxvIFdvcmxkIiwic3ViIjoiMSIsImVtYWlsIjoiaGVsbG9Ad29ybGQuY29tIiwibmJmIjoxNTQ1MDEwMDczLCJleHAiOjE1NDUyNjkyNzMsImlhdCI6MTU0NTAxMDA3MywiaXNzIjoiRGVzYWZpb0lzc3VlciIsImF1ZCI6IkRlc2FmaW9BdWRpZW5jZSJ9.h7y1ABGQ2kvtOprM3JVigjOIYY6GywOGKZpEutEjA9w",
-               new ResponseExpected(HttpStatusCode.OK)
+                TestHelpers.GenerateRandomEmail(),
+                new Func<string, string>(t => t),
+                new ResponseExpected(HttpStatusCode.OK)
             },
             new object[] {
-               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkhlbGxvIFdvcmxkIiwic3ViIjoiMSIsImVtYWlsIjoiaGVsbG9Ad29ybGQuY29tIiwibmJmIjoxNTQ1MDEyMDkxLCJleHAiOjE1NDUwMTIwOTQsImlhdCI6MTU0NTAxMjA5MSwiaXNzIjoiRGVzYWZpb0lzc3VlciIsImF1ZCI6IkRlc2FmaW9BdWRpZW5jZSJ9.3eA87aoQ-YCjG9lrupRbE2nVGMKFlMVMWrSqbHiu4lc",
-               new ResponseExpected(HttpStatusCode.Unauthorized)
+                TestHelpers.GenerateRandomEmail(),
+                new Func<string, string>(t => t.Substring(1)),
+                new ResponseExpected(HttpStatusCode.Unauthorized)
             },
             new object[] {
-               "",
-               new ResponseExpected(HttpStatusCode.Unauthorized)
+                TestHelpers.GenerateRandomEmail(),
+                new Func<string, string>(t => ""),
+                new ResponseExpected(HttpStatusCode.Unauthorized)
             },
         };
 
         [Theory]
         [MemberData(nameof(MeData))]
-        public async Task Me(string authorization, ResponseExpected responseExpected)
+        public async Task Me(string email, Func<string, string> transformAuthorization, ResponseExpected responseExpected)
         {
-            output.WriteLine($"Fazendo um get para a rota 'me' com a autorização '{authorization}'");
-            await server.CreateRequest("me").AddHeader("Authorization", $"Bearer {authorization}").GetAsync().CheckResponse(output, responseExpected);
-        }
+            dynamic content = CreateSignUpInput(email);
 
-        public static IEnumerable<object[]> AllData => new List<object[]>
-        {
-            new object[] {
-                new
-                {
-                    firstName = "Hello",
-                    lastName = "World",
-                    email = "hello@world.com",
-                    password = "hunter2",
-                    phones = new object[] {
-                        new {
-                            number = 988887888,
-                            area_code = 81,
-                            country_code = "+55"
-                        }
-                    }
-                },
-                new ResponseExpected(HttpStatusCode.OK),
-                new ResponseExpected(HttpStatusCode.OK),
-                new ResponseExpected(HttpStatusCode.OK)
-            },
-        };
-
-        [Theory]
-        [MemberData(nameof(AllData))]
-        public async Task All(dynamic content, ResponseExpected signUpResponseExpected, ResponseExpected signInResponseExpected, ResponseExpected meResponseExpected)
-        {
-            output.WriteLine($"Fazendo um post para a rota 'signup' com o seguinte body '{JsonConvert.SerializeObject(content)}'");
-            await server.CreateRequest("signup").Json(content as object).PostAsync().CheckResponse(output, signUpResponseExpected);
+            await SignUpRequest(content, new ResponseExpected(HttpStatusCode.OK));
 
             var signIn = new
             {
@@ -169,11 +161,15 @@ namespace Desafio.Web.Test
                 content.password
             };
 
-            output.WriteLine($"Fazendo um post para a rota 'signin' com o seguinte body '{JsonConvert.SerializeObject(signIn)}'");
-            var authorization = await server.CreateRequest("signin").Json(signIn).PostAsync().CheckResponse(output, signInResponseExpected);
+            var authorization = await SignInRequest(signIn, new ResponseExpected(HttpStatusCode.OK));
 
+            await MeRequest(transformAuthorization(authorization), responseExpected);
+        }
+
+        private async Task MeRequest(string authorization, ResponseExpected responseExpected)
+        {
             output.WriteLine($"Fazendo um get para a rota 'me' com a autorização '{authorization}'");
-            await server.CreateRequest("me").AddHeader("Authorization", $"Bearer {authorization}").GetAsync().CheckResponse(output, meResponseExpected);
+            await server.CreateRequest("me").AddHeader("Authorization", $"Bearer {authorization}").GetAsync().CheckResponse(output, responseExpected);
         }
     }
 }

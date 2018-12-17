@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,11 @@ namespace Desafio.Web.Test
 {
     public static class TestHelpers
     {
+        public static string GenerateRandomEmail()
+        {
+            return $"{Guid.NewGuid().ToString("N")}@world.com";
+        }
+
         public static RequestBuilder Json(this RequestBuilder builder, object content)
         {
             return builder.And(m =>
