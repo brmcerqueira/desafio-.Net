@@ -23,7 +23,7 @@ namespace Desafio.Web.Test
             var response = await taskResponse;
             var responseData = await response.Content.ReadAsStringAsync();
 
-            output.WriteLine($"Dados da resposta: '{response.StatusCode}' - '{response.ReasonPhrase}'");
+            output.WriteLine($"Dados da resposta: '{response.StatusCode}' - '{response.ReasonPhrase}' - {responseData}");
 
             output.WriteLine($"Verificando se o status é '{(int)responseExpected.StatusCode}'");
 

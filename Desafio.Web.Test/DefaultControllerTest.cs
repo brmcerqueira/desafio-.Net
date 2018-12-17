@@ -92,7 +92,7 @@ namespace Desafio.Web.Test
         public static IEnumerable<object[]> MeData => new List<object[]>
         {
             new object[] {
-               "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkhlbGxvIFdvcmxkIiwic3ViIjoiMSIsImVtYWlsIjoiaGVsbG9Ad29ybGQuY29tIiwibmJmIjoxNTQ1MDAwMzE0LCJleHAiOjE1NDUwMDA0MzQsImlhdCI6MTU0NTAwMDMxNCwiaXNzIjoiRGVzYWZpb0lzc3VlciIsImF1ZCI6IkRlc2FmaW9BdWRpZW5jZSJ9.KaINq-FtdB8jLhmaHqcxSEgExI7gH4BgcF8-oxOl9zISZDS9cR-Pm1nyEOwQa8kHa_PI6FNruFEbJM97VucGZ2wYEbUpUvyzsLopFgg2Ij4nkeRxQ_gMBJulTXOB87yppTc_XHvV2Q94h-qrhdAatPc0Xye-ji9Gch_OB6vj95YC3LhxDYXsIUGUSGytHsPLV3Q3D_OlwZvqinQ6MrwfkM1ciUaWhp_B_tn_RlonnzrMb_xluYsCXsdvb2CGvd5Yvm8NUlNG29viU_XPP8EQ5NyryrCisYP67rTwdRXMt861nnVEicjnMqJhjZsHO5dUMwAA3DOH9n49v3RhYjJEpA",
+               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkhlbGxvIFdvcmxkIiwic3ViIjoiMSIsImVtYWlsIjoiaGVsbG9Ad29ybGQuY29tIiwibmJmIjoxNTQ1MDEwMDczLCJleHAiOjE1NDUyNjkyNzMsImlhdCI6MTU0NTAxMDA3MywiaXNzIjoiRGVzYWZpb0lzc3VlciIsImF1ZCI6IkRlc2FmaW9BdWRpZW5jZSJ9.h7y1ABGQ2kvtOprM3JVigjOIYY6GywOGKZpEutEjA9w",
                new ResponseExpected(HttpStatusCode.OK)
             },
             new object[] {

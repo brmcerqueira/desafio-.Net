@@ -13,6 +13,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Desafio.Web
 {
@@ -77,19 +78,9 @@ namespace Desafio.Web
             this.container = container;
             container.Register(f => f.GetInstance<IStringLocalizerFactory>().Create("Shared", "Desafio.Web"), new PerContainerLifetime());
 
-            container.Register(f => 
-            {
-                SecurityKey key = null;
+            container.Register<SecurityKey>(f => new SymmetricSecurityKey(Encoding.ASCII.GetBytes("004d5a77-2753-45c1-8d63-5b765d278f3f")), new PerContainerLifetime());
 
-                using (var provider = new RSACryptoServiceProvider(2048))
-                {
-                    key = new RsaSecurityKey(provider.ExportParameters(true));
-                }
-
-                return key;
-            }, new PerContainerLifetime());
-
-            container.Register(f => new SigningCredentials(f.GetInstance<SecurityKey>(), SecurityAlgorithms.RsaSha256Signature), new PerContainerLifetime());
+            container.Register(f => new SigningCredentials(f.GetInstance<SecurityKey>(), SecurityAlgorithms.HmacSha256), new PerContainerLifetime());
 
             container.RegisterFrom<BusinessRoot>();
             container.RegisterFrom<PersistenceRoot>();

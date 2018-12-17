@@ -56,7 +56,7 @@ namespace Desafio.Business
                         }
                     ),
                     NotBefore = now,
-                    Expires = now + TimeSpan.FromSeconds(120)
+                    Expires = now + TimeSpan.FromDays(3)
                 }))
             };
         }
