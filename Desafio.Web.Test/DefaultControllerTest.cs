@@ -132,5 +132,48 @@ namespace Desafio.Web.Test
             output.WriteLine($"Fazendo um get para a rota 'me' com a autorização '{authorization}'");
             await server.CreateRequest("me").AddHeader("Authorization", $"Bearer {authorization}").GetAsync().CheckResponse(output, responseExpected);
         }
+
+        public static IEnumerable<object[]> AllData => new List<object[]>
+        {
+            new object[] {
+                new
+                {
+                    firstName = "Hello",
+                    lastName = "World",
+                    email = "hello@world.com",
+                    password = "hunter2",
+                    phones = new object[] {
+                        new {
+                            number = 988887888,
+                            area_code = 81,
+                            country_code = "+55"
+                        }
+                    }
+                },
+                new ResponseExpected(HttpStatusCode.OK),
+                new ResponseExpected(HttpStatusCode.OK),
+                new ResponseExpected(HttpStatusCode.OK)
+            },
+        };
+
+        [Theory]
+        [MemberData(nameof(AllData))]
+        public async Task All(dynamic content, ResponseExpected signUpResponseExpected, ResponseExpected signInResponseExpected, ResponseExpected meResponseExpected)
+        {
+            output.WriteLine($"Fazendo um post para a rota 'signup' com o seguinte body '{JsonConvert.SerializeObject(content)}'");
+            await server.CreateRequest("signup").Json(content as object).PostAsync().CheckResponse(output, signUpResponseExpected);
+
+            var signIn = new
+            {
+                content.email,
+                content.password
+            };
+
+            output.WriteLine($"Fazendo um post para a rota 'signin' com o seguinte body '{JsonConvert.SerializeObject(signIn)}'");
+            var authorization = await server.CreateRequest("signin").Json(signIn).PostAsync().CheckResponse(output, signInResponseExpected);
+
+            output.WriteLine($"Fazendo um get para a rota 'me' com a autorização '{authorization}'");
+            await server.CreateRequest("me").AddHeader("Authorization", $"Bearer {authorization}").GetAsync().CheckResponse(output, meResponseExpected);
+        }
     }
 }

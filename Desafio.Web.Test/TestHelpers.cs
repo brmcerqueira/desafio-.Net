@@ -18,7 +18,7 @@ namespace Desafio.Web.Test
             });
         }
 
-        public static async Task CheckResponse(this Task<HttpResponseMessage> taskResponse, ITestOutputHelper output, ResponseExpected responseExpected)
+        public static async Task<string> CheckResponse(this Task<HttpResponseMessage> taskResponse, ITestOutputHelper output, ResponseExpected responseExpected)
         {
             var response = await taskResponse;
             var responseData = await response.Content.ReadAsStringAsync();
@@ -39,6 +39,8 @@ namespace Desafio.Web.Test
 
                 Assert.Equal(responseExpected.ErrorCode.Value, messageError.ErrorCode);
             }
+
+            return responseData;
         }
     }
 }
