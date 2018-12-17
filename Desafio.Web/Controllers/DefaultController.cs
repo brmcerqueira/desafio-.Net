@@ -1,5 +1,6 @@
 ﻿using Desafio.Business;
 using Desafio.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Desafio.Web.Controllers
@@ -27,6 +28,7 @@ namespace Desafio.Web.Controllers
             return service.SignIn(model);
         }
 
+        [Authorize("Bearer")]
         [HttpGet("me")]
         public object Me()
         {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Desafio.Domain;
+﻿using Desafio.Domain;
 
 namespace Desafio.Persistence
 {
@@ -9,5 +6,6 @@ namespace Desafio.Persistence
     {
         void CreateUser(User user);
         bool HasEmail(string email);
+        User GetUserByEmail(string email);
     }
 }

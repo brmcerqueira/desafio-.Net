@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt-Core" Version="2.0.0" />
     <PackageReference Include="FluentValidation" Version="8.1.1" />
     <PackageReference Include="LightInject.Microsoft.DependencyInjection" Version="2.0.7" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +19,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Localization.Abstractions">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.localization.abstractions\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Localization.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\system.identitymodel.tokens.jwt\5.2.0\lib\netstandard1.4\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,21 +1,27 @@
-﻿using Desafio.Business.Dtos;
+﻿using BCrypt;
+using Desafio.Business.Dtos;
 using Desafio.Business.Validators;
 using Desafio.Domain;
 using Desafio.Domain.Exceptions;
 using Desafio.Persistence;
-using FluentValidation;
+using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Desafio.Business
 {
     internal class DefaultService : IDefaultService
     {
+        private readonly SigningCredentials signingCredentials;
         private readonly IDefaultDao dao;
         private readonly SignUpDtoValidator signUpDtoValidator;
 
-        public DefaultService(IDefaultDao dao)
+        public DefaultService(SigningCredentials signingCredentials, IDefaultDao dao)
         {
+            this.signingCredentials = signingCredentials;
             this.dao = dao;
             signUpDtoValidator = new SignUpDtoValidator();
         }
@@ -30,9 +36,28 @@ namespace Desafio.Business
 
         public object SignIn(ISignInDto dto)
         {
+            var user = dao.GetUserByEmail(dto.Email);
+
+            var now = DateTime.Now;
+
+            var handler = new JwtSecurityTokenHandler();
+
             return new
             {
-                Token = ""
+                Token = handler.WriteToken(handler.CreateToken(new SecurityTokenDescriptor
+                {
+                    Issuer = "DesafioIssuer",
+                    Audience = "DesafioAudience",
+                    SigningCredentials = signingCredentials,
+                    Subject = new ClaimsIdentity(new GenericIdentity($"{user.FirstName} {user.LastName}", "SignIn"),
+                        new[] {
+                            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                            new Claim(JwtRegisteredClaimNames.Email, user.Email)
+                        }
+                    ),
+                    NotBefore = now,
+                    Expires = now + TimeSpan.FromSeconds(120)
+                }))
             };
         }
 
@@ -50,7 +75,7 @@ namespace Desafio.Business
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
-                Password = dto.Password,
+                Password = BCryptHelper.HashPassword(dto.Password, BCryptHelper.GenerateSalt()),
                 CreatedAt = DateTime.Now,
                 Phones = dto.Phones.Select(p => new UserPhone
                 {

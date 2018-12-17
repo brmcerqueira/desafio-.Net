@@ -1,6 +1,8 @@
 ﻿using Desafio.Business;
 using Desafio.Persistence;
 using LightInject;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -8,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Security.Cryptography;
 
 namespace Desafio.Web
 {
@@ -28,11 +33,40 @@ namespace Desafio.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DaoContext>(options =>
+            services.AddAuthentication(authOptions =>
             {
-                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+            {
+                var paramsValidation = bearerOptions.TokenValidationParameters;
+
+                paramsValidation.IssuerSigningKey = container.GetInstance<SecurityKey>();
+                paramsValidation.ValidAudience = "DesafioAudience";
+                paramsValidation.ValidIssuer = "DesafioIssuer";
+
+                paramsValidation.ValidateIssuerSigningKey = true;
+
+                paramsValidation.ValidateLifetime = true;
+
+                paramsValidation.ClockSkew = TimeSpan.Zero;
             });
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
+            services.AddDbContext<DaoContext>(options =>
+            {               
+                //options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlite("Data Source=desafio.db");
+            });
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddMvc().AddControllersAsServices();
         }
 
@@ -41,7 +75,22 @@ namespace Desafio.Web
         public void ConfigureContainer(IServiceContainer container)
         {
             this.container = container;
-            container.Register(f => f.GetInstance<IStringLocalizerFactory>().Create("Shared", "Desafio.Web"));
+            container.Register(f => f.GetInstance<IStringLocalizerFactory>().Create("Shared", "Desafio.Web"), new PerContainerLifetime());
+
+            container.Register(f => 
+            {
+                SecurityKey key = null;
+
+                using (var provider = new RSACryptoServiceProvider(2048))
+                {
+                    key = new RsaSecurityKey(provider.ExportParameters(true));
+                }
+
+                return key;
+            }, new PerContainerLifetime());
+
+            container.Register(f => new SigningCredentials(f.GetInstance<SecurityKey>(), SecurityAlgorithms.RsaSha256Signature), new PerContainerLifetime());
+
             container.RegisterFrom<BusinessRoot>();
             container.RegisterFrom<PersistenceRoot>();
         }

@@ -18,6 +18,11 @@ namespace Desafio.Persistence
             context.SaveChanges();
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return context.Set<User>().SingleOrDefault(e => e.Email == email);
+        }
+
         public bool HasEmail(string email)
         {
             return context.Set<User>().Any(e => e.Email == email);
