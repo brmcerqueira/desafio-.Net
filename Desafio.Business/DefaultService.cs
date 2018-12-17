@@ -79,7 +79,7 @@ namespace Desafio.Business
                         }
                     ),
                 NotBefore = now,
-                Expires = now + TimeSpan.FromSeconds(3)
+                Expires = now + TimeSpan.FromDays(3)
             }));
         }
 

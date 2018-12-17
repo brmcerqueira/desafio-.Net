@@ -51,7 +51,7 @@ namespace Desafio.Web
                 {
                     result = new
                     {
-                        Message = stringLocalizer["SystemUnavailable"],
+                        Message = stringLocalizer["SystemUnavailable"].Value,
                         ErrorCode = 0
                     };
                 }
